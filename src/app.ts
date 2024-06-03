@@ -1,22 +1,26 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import authRoutes from './routes/authRoutes';
-import articleRoutes from './routes/articleRoutes';
-import sequelize from './utils/database';
+import express from 'express'
+import bodyParser from 'body-parser'
+import authRoutes from './routes/authRoutes'
+import articleRoutes from './routes/articleRoutes'
+import sequelize from './utils/database'
+import cors from 'cors'
 
-const app = express();
+const app = express()
 
-app.use(bodyParser.json());
+app.use(cors()) // Добавьте эту строку для использования CORS
 
-app.use('/auth', authRoutes);
-app.use('/api', articleRoutes);
+app.use(bodyParser.json())
 
-sequelize.sync()
-  .then(() => {
-    console.log('Database connected');
-  })
-  .catch((error) => {
-    console.error('Unable to connect to the database:', error);
-  });
+app.use('/auth', authRoutes)
+app.use('/api', articleRoutes)
 
-export default app;
+sequelize
+	.sync()
+	.then(() => {
+		console.log('Database connected')
+	})
+	.catch((error) => {
+		console.error('Unable to connect to the database:', error)
+	})
+
+export default app
