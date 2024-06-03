@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: database_name
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mysql
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+    ports:
+      - '8080:8080' # Измените порт на нужный вам
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: username
+      DB_PASSWORD: password
+      DB_NAME: database_name
+    volumes:
+      - ./src:/usr/src/app/src
