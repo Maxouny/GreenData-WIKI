@@ -14,4 +14,4 @@ RUN npm install
 COPY . .
 
 # Запускаем приложение при старте контейнера
-CMD ["npm", "start"]
+CMD ["bash", "-c", "sleep 10 && npm start"]

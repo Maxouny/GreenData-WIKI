@@ -11,15 +11,13 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - '3306:3306'
-    volumes:
-      - ./data:/var/lib/mysql
 
   app:
     build: .
     depends_on:
       - mysql
     ports:
-      - '8080:8080' # Измените порт на нужный вам
+      - '8080:8080'
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
@@ -28,3 +26,8 @@ services:
       DB_NAME: database_name
     volumes:
       - ./src:/usr/src/app/src
+      - ./node_modules:/usr/src/app/node_modules
+
+networks:
+  default:
+    driver: bridge
