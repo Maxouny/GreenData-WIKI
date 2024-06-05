@@ -97,7 +97,7 @@ export const getArticles = async (req: Request, res: Response) => {
 		const articles = await Article.findAll()
 		res
 			.status(200)
-			.json({ message: 'Articles retrieved successfully', articles })
+			.json([...articles])
 	} catch (error) {
 		console.error('Error retrieving articles:', error)
 		res.status(500).json({ message: 'Error retrieving articles', error })
