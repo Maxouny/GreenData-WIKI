@@ -1,11 +1,12 @@
 import { DataTypes, Model } from 'sequelize'
 import sequelize from '../utils/database'
+import User from './User'
 
 class Article extends Model {
 	public id!: number
 	public title!: string
 	public content!: string
-	public creatorName!: string
+	public creatorId!: number
 	public readonly createdAt!: Date
 	public readonly updatedAt!: Date
 }
@@ -17,6 +18,7 @@ sequelize
 	.catch((err) => {
 		console.error('An error occurred while synchronizing models:', err)
 	})
+
 Article.init(
 	{
 		id: {
@@ -32,9 +34,13 @@ Article.init(
 			type: DataTypes.TEXT,
 			allowNull: false,
 		},
-		creatorName: {
-			type: DataTypes.STRING,
+		creatorId: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
+			references: {
+				model: 'Users',
+				key: 'id',
+			},
 		},
 	},
 	{

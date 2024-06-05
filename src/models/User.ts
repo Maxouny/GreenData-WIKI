@@ -1,16 +1,15 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 import sequelize from '../utils/database'
+import Article from './Article'
 
 class User extends Model {
 	public id!: number
-	public name!: string
+	public username!: string
 	public email!: string
 	public password!: string
 	public readonly createdAt!: Date
 	public readonly updatedAt!: Date
-	username: any
 }
-
 sequelize
 	.sync({ force: true }) // Установите force: true, чтобы сбросить существующие таблицы и создать их заново
 	.then(() => {
@@ -21,6 +20,11 @@ sequelize
 	})
 User.init(
 	{
+		id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true,
+		},
 		username: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -42,4 +46,6 @@ User.init(
 	}
 )
 
+User.hasMany(Article, { foreignKey: 'creatorId' })
+Article.belongsTo(User, { foreignKey: 'creatorId' })
 export default User
