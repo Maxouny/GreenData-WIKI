@@ -56,12 +56,12 @@ export const editArticle = async (req: AuthRequest, res: Response) => {
 
 		// Найти пользователя по userId
 		const user = await User.findByPk(id)
-		if (!user) {
-			return res.status(404).json({ message: 'User not found' })
-		}
+		// if (!user) {
+		// 	return res.status(404).json({ message: 'User not found' })
+		// }
 
 		// Проверить, что текущий пользователь является создателем статьи
-		if (article.creatorName !== user.username) {
+		if (article.creatorName !== user?.username) {
 			return res.status(403).json({ message: 'Forbidden' })
 		}
 

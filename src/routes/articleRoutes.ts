@@ -10,7 +10,7 @@ const router = Router()
 
 // Маршруты для создания и редактирования статей
 router.post('/articles', createArticle)
-router.put('/articles/:id', editArticle)
+router.put('/articles', editArticle)
 
 // Маршруты для получения статей
 router.get('/articles/:id', getArticle) // Получить статью по id
