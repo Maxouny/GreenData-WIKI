@@ -37,10 +37,9 @@ export const createArticle = async (req: AuthRequest, res: Response) => {
 }
 
 export const editArticle = async (req: AuthRequest, res: Response) => {
-	const { id } = req.params
-	const { title, content, userId } = req.body
+	const { title, content, id } = req.body
 
-	if (!userId) {
+	if (!id) {
 		return res.status(401).json({ message: 'Unauthorized' })
 	}
 
@@ -56,7 +55,7 @@ export const editArticle = async (req: AuthRequest, res: Response) => {
 		}
 
 		// Найти пользователя по userId
-		const user = await User.findByPk(userId)
+		const user = await User.findByPk(id)
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' })
 		}
@@ -95,9 +94,7 @@ export const getArticles = async (req: Request, res: Response) => {
 	try {
 		// Получить все статьи
 		const articles = await Article.findAll()
-		res
-			.status(200)
-			.json([...articles])
+		res.status(200).json([...articles])
 	} catch (error) {
 		console.error('Error retrieving articles:', error)
 		res.status(500).json({ message: 'Error retrieving articles', error })
