@@ -92,3 +92,19 @@ export const getArticles = async (req: Request, res: Response) => {
 		res.status(500).json({ message: 'Error retrieving articles', error })
 	}
 }
+export const deleteArticle = async (req: Request, res: Response) => {
+	const { id } = req.params
+	try {
+		const article = await Article.findByPk(id)
+		if (!article) {
+			return res.status(404).json({ message: 'Article not found' })
+		}
+		await article.destroy()
+		return res.status(200).json({ message: 'Article deleted successfully' })
+	} catch (error) {
+		console.error(error)
+		return res
+			.status(500)
+			.json({ message: 'An error occurred while deleting the article' })
+	}
+}

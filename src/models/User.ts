@@ -9,7 +9,7 @@ class User extends Model {
 	public email!: string
 	public password!: string
 	public readonly createdAt!: Date
-	public readonly updatedAt!: Date
+	public updatedAt!: Date
 }
 
 sequelize
