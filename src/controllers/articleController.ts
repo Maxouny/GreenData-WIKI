@@ -60,6 +60,7 @@ export const editArticle = async (req: Request, res: Response) => {
 
 		await article.update({ title, content })
 		res.status(200).json({ message: 'Article updated successfully', article })
+		article.updatedAt = new Date()
 	} catch (error) {
 		console.error('Error updating article:', error)
 		res.status(500).json({ message: 'Error updating article', error })

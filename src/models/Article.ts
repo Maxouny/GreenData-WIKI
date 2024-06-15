@@ -1,6 +1,5 @@
 import { DataTypes, Model } from 'sequelize'
 import sequelize from '../utils/database'
-import User from './User'
 
 class Article extends Model {
 	public id!: number
@@ -8,14 +7,14 @@ class Article extends Model {
 	public content!: string
 	public creatorId!: number
 	public readonly createdAt!: Date
-	public readonly updatedAt!: Date
+	public updatedAt!: Date
 }
 sequelize
 	.sync({ force: true }) // Установите force: true, чтобы сбросить существующие таблицы и создать их заново
 	.then(() => {
 		console.log('All models were synchronized successfully.')
 	})
-	.catch((err) => {
+	.catch(err => {
 		console.error('An error occurred while synchronizing models:', err)
 	})
 
